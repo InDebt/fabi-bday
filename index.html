@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Fabian!</title>
+    <!-- Tailwind CSS CDN for responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font for a bold, modern look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark theme background */
+            color: #e2e8f0; /* Light text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Full viewport height */
+            margin: 0;
+            overflow: hidden; /* Hide overflow during animations */
+        }
+
+        /* --- Linkin Park Logo Container and Image Animations --- */
+        #logo-container {
+            cursor: pointer;
+            transition: all 0.5s ease-in-out; /* Smooth transitions for hover/tap feedback */
+            padding: 20px; /* Add some padding around the logo for better tap target */
+            border-radius: 15px; /* Rounded corners for the container */
+            /* background: linear-gradient(145deg, #2d3748, #1a202c); /* Subtle gradient for depth */
+            /*box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); /* Soft shadow */
+            display: flex; /* Use flex to center the image within its container */
+            justify-content: center;
+            align-items: center;
+            max-width: 90%; /* Ensure container scales on smaller screens */
+        }
+
+        #logo {
+            max-width: 100%; /* Ensure image fits within its container */
+            height: auto; /* Maintain aspect ratio */
+            /* Apply invert(1) here to make the black logo white, then add the glow */
+            filter: invert(1) drop-shadow(0 0 15px rgba(0, 200, 255, 0.7)) /* Initial blue glow for image */
+                    drop-shadow(0 0 30px rgba(0, 150, 255, 0.5));
+            animation: pulse-glow 2.5s infinite ease-in-out,
+                       flicker-lightning 0.3s infinite alternate; /* Combined animations */
+            will-change: transform, opacity, filter; /* Optimize animations */
+        }
+
+        /* Pulsing glow effect for the image */
+        @keyframes pulse-glow {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+                /* Ensure invert(1) is maintained throughout the animation */
+                filter: invert(1) drop-shadow(0 0 15px rgba(0, 200, 255, 0.7))
+                        drop-shadow(0 0 30px rgba(0, 150, 255, 0.5));
+            }
+            50% {
+                transform: scale(1.03);
+                opacity: 0.9;
+                /* Ensure invert(1) is maintained throughout the animation */
+                filter: invert(1) drop-shadow(0 0 25px rgba(0, 220, 255, 0.9))
+                        drop-shadow(0 0 50px rgba(0, 180, 255, 0.7))
+                        drop-shadow(0 0 80px rgba(0, 100, 255, 0.3));
+            }
+        }
+
+        /* Subtle flicker effect for lightning feel on the image */
+        @keyframes flicker-lightning {
+            0% { filter: invert(1) drop-shadow(0 0 15px rgba(0, 200, 255, 0.7)); }
+            25% { filter: invert(1) drop-shadow(0 0 10px rgba(0, 200, 255, 0.5)); }
+            50% { filter: invert(1) drop-shadow(0 0 20px rgba(0, 200, 255, 0.9)) drop-shadow(0 0 40px rgba(0, 150, 255, 0.6)); }
+            75% { filter: invert(1) drop-shadow(0 0 12px rgba(0, 200, 255, 0.6)); }
+            100% { filter: invert(1) drop-shadow(0 0 18px rgba(0, 200, 255, 0.8)) drop-shadow(0 0 35px rgba(0, 150, 255, 0.5)); }
+        }
+
+        /* Logo disappearance animation */
+        .logo-fade-out {
+            animation: zoom-fade-out 0.8s forwards; /* Animation for zoom and fade */
+            pointer-events: none; /* Prevent further clicks during animation */
+        }
+
+        @keyframes zoom-fade-out {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; display: none; }
+        }
+
+        /* --- Message Text Animations --- */
+        #message-container {
+            opacity: 0; /* Initially hidden */
+            transition: opacity 1s ease-in; /* Fade in the container */
+            max-width: 90%; /* Limit width for readability on larger screens */
+            text-align: center;
+        }
+
+        #message-container.visible {
+            opacity: 1;
+        }
+
+        #message-text {
+            font-size: 1.5rem; /* Base font size for mobile */
+            font-weight: 600;
+            line-height: 1.6;
+            margin: 20px;
+            color: #a0aec0; /* Slightly lighter text color */
+        }
+        @media (min-width: 640px) { /* sm breakpoint */
+            #message-text {
+                font-size: 1.8rem;
+            }
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            #message-text {
+                font-size: 2.2rem;
+            }
+        }
+        @media (min-width: 1024px) { /* lg breakpoint */
+            #message-text {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Specific style for words as they appear (fade in from left) */
+        .word-reveal {
+            opacity: 0;
+            padding-left: 10px;
+            // transform: translateX(-20px); /* Start slightly off to the left */
+            animation: word-fade-in 0.6s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth reveal */
+            display: inline-block; /* Allows transform and spacing */
+            mask-repeat: no-repeat
+        }
+
+        @keyframes word-fade-in {
+            /*to { opacity: 1; transform: translateX(0); } /* End at original position, fully visible */
+              0% {
+                mask-size: 0%;
+                mask-image: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 1) 70%,
+                rgba(0, 0, 0, 0)
+                );
+            }
+            100% {
+                mask-size: 100%;
+                mask-image: linear-gradient(
+                to right,
+                rgba(0, 0, 0, 1) 100%,
+                rgba(0, 0, 0, 0)
+                );
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center bg-gray-900 min-h-screen p-4 md:p-8">
+
+    <!-- Linkin Park Logo Section -->
+    <div id="logo-container" class="flex justify-center items-center rounded-xl relative p-8 md:p-12 lg:p-16">
+        <img id="logo" src="https://assets.stickpng.com/images/612a32b17c7c75000443b27a.png" alt="Linkin Park Logo">
+    </div>
+
+    <!-- Hidden Message Section -->
+    <div id="message-container" class="hidden text-center mt-8 max-w-4xl">
+        <p id="message-text"></p>
+    </div>
+
+    <script>
+        const logoContainer = document.getElementById('logo-container');
+        const messageContainer = document.getElementById('message-container');
+        const messageTextElement = document.getElementById('message-text');
+
+        // The birthday message for Fabian
+        const message = "Lieber Fabian. Wir würden dich gerne am 01.06.2026 mit nach Hamburg nehmen. Dort wird Linkin Park auftreten und wir gemeinsam ein unvergessliches Konzert erleben!";
+        const words = message.split(' '); // Split the message into individual words
+
+        let wordIndex = 0; // Keep track of the current word to display
+        const revealSpeed = 400; // Milliseconds per word for typing effect
+
+        /**
+         * Initiates the reveal of the message word by word.
+         * Each word is wrapped in a span and animated for a smooth appearance.
+         */
+        function revealMessage() {
+            if (wordIndex < words.length) {
+                const wordSpan = document.createElement('span');
+                wordSpan.textContent = words[wordIndex];
+                wordSpan.classList.add('word-reveal'); // Apply the word-reveal animation class
+                messageTextElement.appendChild(wordSpan);
+
+                // Set a custom animation delay for each word to create the sequence
+                wordSpan.style.animationDelay = `${wordIndex * (revealSpeed / 1000)}s`;
+
+                wordIndex++;
+                setTimeout(revealMessage, 0); // Call itself for the next word
+            }
+        }
+
+        /**
+         * Handles the click/tap event on the logo.
+         * Triggers the logo fade-out animation and then reveals the message.
+         */
+        logoContainer.addEventListener('click', () => {
+            // Add class for logo fade-out animation
+            logoContainer.classList.add('logo-fade-out');
+
+            // After the logo animation completes, reveal the message
+            logoContainer.addEventListener('animationend', () => {
+                logoContainer.style.display = 'none'; // Hide the logo container after animation
+
+                messageContainer.classList.remove('hidden'); // Make message container visible
+                messageContainer.classList.add('visible'); // Trigger fade-in for the container
+                revealMessage(); // Start revealing the words
+            }, { once: true }); // Ensure the event listener runs only once
+        });
+    </script>
+</body>
+</html>
